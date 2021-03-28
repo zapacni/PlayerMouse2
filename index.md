@@ -1,37 +1,71 @@
-## Welcome to GitHub Pages
+# PlayerMouse2 Documentation
 
-You can use the [editor on GitHub](https://github.com/zapacni/PlayerMouse2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Welcome to the PlayerMouse2 documentation!
+PlayerMouse2 is an elegant, modern alternative to the PlayerMouse.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Properties
 
-### Markdown
+### Delta: Vector2
+Describes the change in the mouse position since the last frame. Only works if mouse is locked in place.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### Hit: CFrame
+Describes a `CFrame` of the mouse position in the 3D world. This property respects the `TargetFilter`.
 
-```markdown
-Syntax highlighted code block
+### IconEnabled: boolean
+Describes a boolean that determines if the mouse icon is enabled or not.
 
-# Header 1
-## Header 2
-### Header 3
+### Normal: Vector3
+Describes the surface normal the mouse is on, as a Vector3. Returns a blank identity Vector3 if there is no `Target`.
 
-- Bulleted
-- List
+### Origin: CFrame
+Describes a CFrame that starts at the camera's `CFrame.Position` that orients towards the mouse's `Hit.Position`.
 
-1. Numbered
-2. List
+### Position: Vector2
+Describes the 2D coordinates 
 
-**Bold** and _Italic_ and `Code` text
+### Sensitivity: number
+Describes the delta sensitivity of the mouse
 
-[Link](url) and ![Image](src)
-```
+### Target: BasePart?
+Describes the part the mouse is currently hovering over. Nil if pointing at the sky/an ignored part.
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### TargetFilter: { Instance }
+Describes a list of instances to ignore. Ignores the `Player.Character` by default.
 
-### Jekyll Themes
+### UnitRay: Ray
+Describes a unit ray positioned at the camera directed towards the mouse's `Hit.Position`.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/zapacni/PlayerMouse2/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+## Events
 
-### Support or Contact
+### LeftPressed()
+Fires when the left mouse button is pressed.
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+###	LeftClicked()
+Fires when a full left mouse button click is finished.
+
+###	LeftReleased()
+Fires when the left mouse button is released (fires after `LeftClicked`).
+
+###	RightPressed()
+Fires when the right mouse button is pressed.
+
+###	RightClicked()
+Fires when a full right mouse button click is finished.
+
+###	RightReleased()
+Fires when the right mouse button is released (fires after `RightClicked`).
+
+###	Moved(delta: Vector2)
+Fires when the mouse moves, and passes the mouse delta as an argument to its listeners.
+
+###	WheelScrolled(direction: number)
+Fires when the mouse wheel is scrolled, and passes the scroll direction as an argument to its listeners (1 = scroll up, -1 = scroll down).
+
+###	WheelReleased()
+Fires when the mouse wheel is released.
+
+###	WheelClicked()
+Fires when a full mouse wheel click is finished.
+
+### WheelPressed()
+Fires when the mouse wheel is pressed.
