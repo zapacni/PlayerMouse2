@@ -8,7 +8,7 @@ local client = Players.LocalPlayer
 local camera = Workspace.CurrentCamera
 
 coroutine.wrap(function()
-	table.insert(PlayerMouse2, client.Character or client.CharacterAdded:Wait())
+	table.insert(PlayerMouse2.TargetFilter, client.Character or client.CharacterAdded:Wait())
 end)()
 
 local event_names = {
@@ -55,7 +55,7 @@ local properties = {
 		local mouse_location = UserInputService:GetMouseLocation()
 		local unscaled_ray = camera:ViewportPointToRay(mouse_location.X, mouse_location.Y)
 		local scaled_ray = Ray.new(unscaled_ray.Origin, unscaled_ray.Direction*1000)
-		local raycast_result = Workspace:Raycast(scaled_ray.Origin, scaled_ray.Direction*1000, params)
+		local raycast_result = Workspace:Raycast(scaled_ray.Origin, scaled_ray.Direction, params)
 		return raycast_result and raycast_result.Instance
 	end,
 
