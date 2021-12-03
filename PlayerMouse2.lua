@@ -18,6 +18,8 @@ local event_names = {
 	"WheelPressed", "WheelClicked"
 }
 
+local max_target_distance = 1000 -- default is 1000
+
 local real_events = { }
 local writable_properties = {
 	IconEnabled = function(value: boolean)
@@ -26,6 +28,10 @@ local writable_properties = {
 
 	Sensitivity = function(value: number)
 		UserInputService.MouseDeltaSensitivity = value
+	end,
+
+	MaxTargetDistance = function(value: number)
+		max_target_distance = value
 	end
 }
 
@@ -41,7 +47,7 @@ local function raycast(): (Ray, RaycastResult?)
 	raycast_params.FilterDescendantsInstances = PlayerMouse2.TargetFilter
 	local mouse_location = UserInputService:GetMouseLocation()
 	local unscaled_ray = camera:ViewportPointToRay(mouse_location.X, mouse_location.Y)
-	local scaled_ray = Ray.new(unscaled_ray.Origin, unscaled_ray.Direction*1000)
+	local scaled_ray = Ray.new(unscaled_ray.Origin, unscaled_ray.Direction * max_target_distance)
 
 	return unscaled_ray, Workspace:Raycast(scaled_ray.Origin, scaled_ray.Direction, raycast_params)
 end
@@ -54,14 +60,14 @@ local properties = {
 
 		local mouse_location = UserInputService:GetMouseLocation()
 		local unscaled_ray = camera:ViewportPointToRay(mouse_location.X, mouse_location.Y)
-		local scaled_ray = Ray.new(unscaled_ray.Origin, unscaled_ray.Direction*1000)
+		local scaled_ray = Ray.new(unscaled_ray.Origin, unscaled_ray.Direction * max_target_distance)
 		local raycast_result = Workspace:Raycast(scaled_ray.Origin, scaled_ray.Direction, params)
 		return raycast_result and raycast_result.Instance
 	end,
 
 	Hit = function(): CFrame
-		local ray, raycast_result = raycast()
-		local intersection = raycast_result and raycast_result.Position or ray.Origin + ray.Direction*1000
+		local ray, result = raycast()
+		local intersection = result and result.Position or ray.Origin + ray.Direction * max_target_distance
 
 		return CFrame.new(intersection, camera.CFrame.Position)
 	end,
@@ -92,6 +98,10 @@ local properties = {
 	Normal = function(): Vector3
 		local raycast_result = select(2, raycast())
 		return raycast_result and raycast_result.Normal or Vector3.new()
+	end,
+
+	MaxTargetDistance = function(): number
+		return max_target_distance
 	end
 }
 
