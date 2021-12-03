@@ -35,6 +35,9 @@ Describes a list of instances to ignore. Ignores the `Player.Character` by defau
 ### UnitRay: Ray
 Describes a unit ray positioned at the camera directed towards the mouse's `Hit.Position`.
 
+### MaxTargetDistance: number
+Describes the maximum distance the mouse can reach. Default value is 1000.
+
 ## Events
 
 ### LeftPressed()
